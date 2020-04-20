@@ -12,7 +12,7 @@ import Rank from '@/core/models/Rank'
 const api = Router()
 
 api.post('/signup', async (req: Request, res: Response) => {
-  const fields = ['firstName','email', 'password', 'passwordConfirmation']
+  const fields = ['firstname','lastname','gender','email', 'password', 'passwordConfirmation']
 
   try {
     const missings = fields.filter((field: string) => !req.body[field])
@@ -22,7 +22,7 @@ api.post('/signup', async (req: Request, res: Response) => {
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
 
-    const { firstName, email, password, passwordConfirmation } = req.body
+    const { firstname,lastname, email,gender,password, passwordConfirmation } = req.body
 
     if (password !== passwordConfirmation) {
       throw new Error("Password doesn't match")
@@ -32,14 +32,16 @@ api.post('/signup', async (req: Request, res: Response) => {
 
     let rank = await Rank.findOne(1)
 
-    customer.firstName = firstName,
+    customer.firstname = firstname,
+    customer.lastname = lastname,
     customer.email = email,
+    customer.gender = gender
     customer.password = password
     customer.rank = rank
 
     await customer.save()
 
-    const payload = { id: customer.id, firstName }
+    const payload = { id: customer.id, firstname }
     const token = jwt.sign(payload, process.env.JWT_ENCRYPTION as string)
 
     res.status(CREATED.status).json(success(customer, { token }))

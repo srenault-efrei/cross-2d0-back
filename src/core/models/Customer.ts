@@ -12,15 +12,15 @@ export default class Customer extends User{
 
   
     @Column({ nullable: false })
-        firstName!: string
+        firstname!: string
         
     @Column({ nullable: false })
-        lastName!: string  
+        lastname!: string  
         
     @Column({ nullable: false })
         gender!: string   
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
         note!: number    
     
     @ManyToOne( type => Rank, rank => rank.customers )    
