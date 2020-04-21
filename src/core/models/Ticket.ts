@@ -29,11 +29,14 @@ export default class Ticket extends BaseEntity {
     @Column({ nullable: false })
     title!: string
 
-    @Column({ nullable: true })
+    @Column({ nullable: false })
     description!: string
 
-    @Column({ nullable: false })
-    mapPoint!: string
+    @Column({ type: 'float', nullable: false })
+    longitude!: number
+
+    @Column({ type: 'float', nullable: false })
+    latitude!: number
 
     @Column({ nullable: false })
     imageFile!: string

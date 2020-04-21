@@ -46,21 +46,26 @@ export default class Database {
       password,
       database,
       entities: [User,Rank,Customer,Association,Message,Ticket,Category],
-      dropSchema: true,
+      dropSchema: false,
       synchronize: true,
       logging: false,
     })
 
-    // ajout des fixtures automatiquement
+    // add fixtures
     addRanks()
     addCategories()
 
-  //  const  t = new Ticket()
-  //   t.title  = 'test'
-  //   t.state = state.FIRST_STATE
-  //   t.type = type.SECONND_TYPE
-  //   t.category = await Category.findOne(1)
-  //   t.save()
+    // add a new ticket for testing
+   const  t = new Ticket()
+    t.title  = 'test'
+    t.state = state.FIRST_STATE
+    t.type = type.SECONND_TYPE
+    t.category = await Category.findOne(1)
+    t.latitude = 48.77632508218089
+    t.longitude = 2.335073365204421 
+    t.description = 'test ticket'
+    t.imageFile = '../src/img'
+    t.save()
 
     return this._connection
   }
