@@ -3,7 +3,10 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
-    BaseEntity,    
+    BaseEntity,
+    CreateDateColumn,
+    UpdateDateColumn
+
 } from 'typeorm'
 
 import Category from './Category'
@@ -45,9 +48,15 @@ export default class Ticket extends BaseEntity {
     type!: TicketType
 
     @Column({ type: "text", nullable: false })
-    state!: TicketState 
+    state!: TicketState
 
-    @ManyToOne( type => Category, category => category.tickets )
+    @CreateDateColumn()
+    createdAt!: string
+
+    @UpdateDateColumn()
+    updatedAt!: string
+
+    @ManyToOne(type => Category, category => category.tickets)
     category!: Category | undefined
 
 }
