@@ -9,12 +9,12 @@ import {
 import Category from './Category'
 
 
-export enum type {
+export enum TicketType {
     FIRST_TYPE = 'barter',
     SECONND_TYPE = 'donation',
 }
 
-export enum state {
+export enum TicketState {
     FIRST_STATE = 'open',
     SECOND_STATE = 'waiting',
     THIRD_STATE = 'close'
@@ -32,20 +32,20 @@ export default class Ticket extends BaseEntity {
     @Column({ nullable: false })
     description!: string
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: "float", nullable: false })
     longitude!: number
 
-    @Column({ type: 'float', nullable: false })
+    @Column({ type: "float", nullable: false })
     latitude!: number
 
     @Column({ nullable: false })
     imageFile!: string
 
-    @Column({ nullable: false })
-    type!: string
+    @Column({ type: "text", nullable: false })
+    type!: TicketType
 
-    @Column({ nullable: false })
-    state!: string
+    @Column({ type: "text", nullable: false })
+    state!: TicketState 
 
     @ManyToOne( type => Category, category => category.tickets )
     category!: Category | undefined

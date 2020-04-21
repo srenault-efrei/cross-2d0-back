@@ -6,7 +6,7 @@ import Rank from './Rank'
 import Customer from './Customer'
 import Association from './Association'
 import Message from './Message'
-import Ticket, {type, state} from './Ticket'
+import Ticket, {TicketType, TicketState} from './Ticket'
 import Category from './Category'
 import { addRanks } from '@/core/fixtures/rank'
 import { addCategories } from '../fixtures/category'
@@ -52,14 +52,14 @@ export default class Database {
     })
 
     // add fixtures
-    addRanks()
-    addCategories()
+     addRanks()
+     addCategories()
 
     // add a new ticket for testing
    const  t = new Ticket()
-    t.title  = 'test'
-    t.state = state.FIRST_STATE
-    t.type = type.SECONND_TYPE
+    t.title  = 'hello'
+    t.state = TicketState.FIRST_STATE
+    t.type = TicketType.SECONND_TYPE
     t.category = await Category.findOne(1)
     t.latitude = 48.77632508218089
     t.longitude = 2.335073365204421 
