@@ -15,7 +15,7 @@ type ResponseKo = {
 }
 
 export function success(resource: any, meta: any = {}): RepsonseOk {
-  const name = resource.constructor.name
+  let name = resource.constructor.name
 
   return { data: { [name.toLowerCase()]: resource.toJSON(), meta } }
 }

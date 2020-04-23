@@ -19,7 +19,7 @@ passport.use(
     },
     async (email, password, next) => {
       try {
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ email },{ relations: ["rank"] })
 
         if (!user) {
           next(`Sorry email ${email} dosen't exist`, null)

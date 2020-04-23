@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express'
 import User from '@/core/models/User'
 import { error, success } from '@/core/helpers/response'
 import { BAD_REQUEST, CREATED } from '@/core/constants/api'
+import Rank from '@/core/models/Rank'
 
 const api = Router()
 
@@ -10,7 +11,8 @@ api.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
-    const user = await User.findOne({ where: { id } })
+    const user = await User.findOne(id,{ relations: ["rank"] })
+    
 
     res.status(CREATED.status).json(success(user))
   } catch (err) {

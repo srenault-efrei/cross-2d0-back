@@ -4,7 +4,6 @@ import { error, success } from '../../core/helpers/response'
 import { BAD_REQUEST, CREATED, OK } from '../../core/constants/api'
 import jwt from 'jsonwebtoken'
 
-import Association from '../../core/models/Association'
 import passport from 'passport'
 import Customer from '@/core/models/Customer'
 import Rank from '@/core/models/Rank'
@@ -50,20 +49,20 @@ api.post('/signup', async (req: Request, res: Response) => {
   }
 })
 
-// api.post('/signin', async (req: Request, res: Response) => {
-//   const authenticate = passport.authenticate('local', { session: false }, (errorMessage, user) => {
-//     if (errorMessage) {
-//       res.status(BAD_REQUEST.status).json(error(BAD_REQUEST, new Error(errorMessage)))
-//       return
-//     }
+api.post('/signin', async (req: Request, res: Response) => {
+  const authenticate = passport.authenticate('local', { session: false }, (errorMessage, user) => {
+    if (errorMessage) {
+      res.status(BAD_REQUEST.status).json(error(BAD_REQUEST, new Error(errorMessage)))
+      return
+    }
 
-//     const payload = { id: user.id, firstname: user.firstname }
-//     const token = jwt.sign(payload, process.env.JWT_ENCRYPTION as string)
+    const payload = { id: user.id, firstname: user.firstname }
+    const token = jwt.sign(payload, process.env.JWT_ENCRYPTION as string)
 
-//     res.status(OK.status).json(success(user, { token }))
-//   })
+    res.status(OK.status).json(success(user, { token }))
+  })
 
-//   authenticate(req, res)
-// })
+  authenticate(req, res)
+})
 
 export default api
