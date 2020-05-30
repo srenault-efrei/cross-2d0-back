@@ -10,6 +10,8 @@ import {
 } from 'typeorm'
 
 import Category from './Category'
+import { type } from 'os'
+import User from './User'
 
 
 export enum TicketType {
@@ -41,8 +43,8 @@ export default class Ticket extends BaseEntity {
     @Column({ type: "float", nullable: false })
     latitude!: number
 
-    @Column({ nullable: false })
-    imageFile!: string
+    @Column({ type: "simple-array", nullable: false })
+    imagesFiles!: string[]
 
     @Column({ type: "text", nullable: false })
     type!: TicketType
@@ -58,5 +60,8 @@ export default class Ticket extends BaseEntity {
 
     @ManyToOne(type => Category, category => category.tickets)
     category!: Category | undefined
+
+    @ManyToOne( type => User, user => user.tickets)
+    user!: User | undefined
 
 }

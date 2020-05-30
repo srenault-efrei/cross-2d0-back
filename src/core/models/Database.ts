@@ -10,6 +10,7 @@ import Ticket, { TicketType, TicketState } from './Ticket'
 import Category from './Category'
 import { addRanks } from '@/core/fixtures/rank'
 import { addCategories } from '../fixtures/category'
+import { addUsers } from '../fixtures/user'
 
 
 
@@ -46,7 +47,7 @@ export default class Database {
       password,
       database,
       entities: [User, Rank, Customer, Association, Message, Ticket, Category],
-      dropSchema: false,
+      dropSchema: true,
       synchronize: true,
       logging: false,
     })
@@ -56,16 +57,26 @@ export default class Database {
     addCategories()
 
     // add a new ticket for testing
-    const t = new Ticket()
-    t.title = 'Test'
-    t.state = TicketState.FIRST_STATE
-    t.type = TicketType.SECONND_TYPE
-    t.category = await Category.findOne(1)
-    t.latitude = 48.77632508218089
-    t.longitude = 2.335073365204421
-    t.description = 'test ticket'
-    t.imageFile = '../src/img'
-    t.save()
+
+   setTimeout(async function () {
+      const t = new Ticket()
+      t.title = 'Test'
+      t.state = TicketState.FIRST_STATE
+      t.type = TicketType.SECONND_TYPE
+      t.category =  await Category.findOne(1)
+      t.latitude = 48.77632508218089
+      t.longitude = 2.335073365204421
+      t.description = 'test ticket'
+      t.imagesFiles =[ '../src/img/photo1.png', '..src/img/photo2.png']
+      t.save()
+
+    }, 3000);
+
+    setTimeout(async function (){
+      addUsers()
+    },4000);
+ 
+
 
     return this._connection
   }

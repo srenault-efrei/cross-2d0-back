@@ -6,12 +6,12 @@ import {Entity,
   UpdateDateColumn,
   TableInheritance,
   BeforeInsert,
-  BeforeUpdate,
   OneToMany,
 } from 'typeorm'
 
 import bcrypt from 'bcryptjs'
 import Message from './Message'
+import Ticket from './Ticket'
 
 @Entity()
 @TableInheritance({ column: { type: "varchar", name: "type" } })
@@ -46,6 +46,9 @@ export default class User extends BaseEntity {
   @OneToMany( type => Message, message => message.recipient )
   recipientMessages!: Message[]
 
+  @OneToMany( type => Ticket, ticket => ticket.user)
+  tickets!: Ticket[] | undefined
+
 
 
 
@@ -53,7 +56,6 @@ export default class User extends BaseEntity {
    * Hooks
    */
   @BeforeInsert()
-  @BeforeUpdate()
   public hashPassword(): void | never {
     if (!this.password) {
       throw new Error('Password is not defined')

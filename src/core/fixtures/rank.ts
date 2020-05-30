@@ -58,7 +58,7 @@ const ranks = [
     },
 ]
 
-export function addRanks(): void {
+export async function addRanks(): Promise< never | void > {
 
     for (const rank of ranks) {
 
@@ -70,6 +70,6 @@ export function addRanks(): void {
             r.pointStart = rank.pointStart
             r.pointEnd = rank.pointEnd
         }
-        r.save()
+       await  r.save()
     }
 }
