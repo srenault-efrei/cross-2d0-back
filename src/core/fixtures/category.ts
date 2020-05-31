@@ -1,6 +1,6 @@
 import Category from "../models/Category"
 
-const categories = [{ id: 1,title: 'Real estate' }, { id: 2, title: 'Dress' }]
+const categories = [{ id: 1,title: 'Alimentation' }, { id: 2, title: 'Textile' },  { id: 3, title: 'Jouet' },  { id: 4, title: 'Informatique' }]
 
 export async function addCategories() : Promise< never|void > {
 

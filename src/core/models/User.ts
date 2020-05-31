@@ -7,6 +7,7 @@ import {Entity,
   TableInheritance,
   BeforeInsert,
   OneToMany,
+  AfterUpdate,
 } from 'typeorm'
 
 import bcrypt from 'bcryptjs'
@@ -20,7 +21,7 @@ export default class User extends BaseEntity {
   private static SALT_ROUND = 8
 
   @PrimaryGeneratedColumn('uuid')
-  id!: number
+  id!: string
 
   @Column({ nullable: false, unique: true })
   email!: string
@@ -28,11 +29,17 @@ export default class User extends BaseEntity {
   @Column({ nullable: false })
   password!: string
 
-  @Column({ nullable: true })
-  geocalisation!: string
+  @Column({ type: "float", nullable: true })
+  laltitude!: number
+
+  @Column({ type: "float", nullable: true })
+  longitude!: number
 
   @Column({ nullable: true })
   avatarFile!: string
+
+  @Column({ nullable: false, default: false })
+  geocalisation!: boolean
 
   @CreateDateColumn()
   createdAt!: string
@@ -48,9 +55,6 @@ export default class User extends BaseEntity {
 
   @OneToMany( type => Ticket, ticket => ticket.user)
   tickets!: Ticket[] | undefined
-
-
-
 
   /**
    * Hooks
@@ -73,9 +77,7 @@ export default class User extends BaseEntity {
 
   public toJSON(): User {
     const json: User = Object.assign({}, this)
-
     delete json.password
-
     return json
   }
 }

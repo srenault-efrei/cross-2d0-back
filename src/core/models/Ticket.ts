@@ -10,7 +10,6 @@ import {
 } from 'typeorm'
 
 import Category from './Category'
-import { type } from 'os'
 import User from './User'
 
 
@@ -37,19 +36,13 @@ export default class Ticket extends BaseEntity {
     @Column({ nullable: false })
     description!: string
 
-    @Column({ type: "float", nullable: false })
-    longitude!: number
-
-    @Column({ type: "float", nullable: false })
-    latitude!: number
-
     @Column({ type: "simple-array", nullable: false })
     imagesFiles!: string[]
 
     @Column({ type: "text", nullable: false })
     type!: TicketType
 
-    @Column({ type: "text", nullable: false })
+    @Column({ type: "text", nullable: false, default: TicketState.FIRST_STATE })
     state!: TicketState
 
     @CreateDateColumn()

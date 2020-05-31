@@ -6,11 +6,14 @@ import Rank from './Rank'
 import Customer from './Customer'
 import Association from './Association'
 import Message from './Message'
-import Ticket, { TicketType, TicketState } from './Ticket'
+import Ticket from './Ticket'
 import Category from './Category'
 import { addRanks } from '@/core/fixtures/rank'
 import { addCategories } from '../fixtures/category'
-import { addUsers } from '../fixtures/user'
+import { addCustomers } from '../fixtures/customer'
+import { addAssociations } from '../fixtures/association'
+import { addTickets } from '../fixtures/tickets'
+
 
 
 
@@ -26,6 +29,22 @@ export default class Database {
     }
 
     return Database._instance
+  }
+
+  public addFixtures(): void {
+
+    addRanks()
+    addCategories()
+
+    setTimeout(async function () {
+      addTickets()
+    }, 1000);
+
+    setTimeout(async function () {
+      addCustomers()
+      addAssociations()
+    }, 2000);
+
   }
 
   public async authenticate(): Promise<Connection | never> {
@@ -52,32 +71,7 @@ export default class Database {
       logging: false,
     })
 
-    // add fixtures
-    addRanks()
-    addCategories()
-
-    // add a new ticket for testing
-
-   setTimeout(async function () {
-      const t = new Ticket()
-      t.title = 'Test'
-      t.state = TicketState.FIRST_STATE
-      t.type = TicketType.SECONND_TYPE
-      t.category =  await Category.findOne(1)
-      t.latitude = 48.77632508218089
-      t.longitude = 2.335073365204421
-      t.description = 'test ticket'
-      t.imagesFiles =[ '../src/img/photo1.png', '..src/img/photo2.png']
-      t.save()
-
-    }, 3000);
-
-    setTimeout(async function (){
-      addUsers()
-    },4000);
- 
-
-
+    this.addFixtures()
     return this._connection
   }
 }

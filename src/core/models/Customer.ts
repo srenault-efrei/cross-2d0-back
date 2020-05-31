@@ -7,6 +7,11 @@ import{
 import User from './User'
 import Rank from './Rank'
 
+export enum CustomerGender {
+    Man = 'homme',
+    Woman = 'femme',
+}
+
 @ChildEntity()
 export default class Customer extends User{
 
@@ -17,12 +22,12 @@ export default class Customer extends User{
     @Column({ nullable: false })
         lastname!: string  
         
-    @Column({ nullable: false })
-        gender!: string   
+    @Column({type: "text", nullable: false })
+        gender!: CustomerGender   
 
     @Column({ nullable: true })
         note!: number    
     
-    @ManyToOne( type => Rank, rank => rank.customers )    
+    @ManyToOne( type => Rank, rank => rank.customers)
         rank!: Rank | undefined
     }
