@@ -30,7 +30,7 @@ export default class User extends BaseEntity {
   password!: string
 
   @Column({ type: "float", nullable: true })
-  laltitude!: number
+  latitude!: number
 
   @Column({ type: "float", nullable: true })
   longitude!: number
