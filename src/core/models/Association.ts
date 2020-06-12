@@ -15,5 +15,10 @@ export default class Association extends User{
         filePath!: string  
         
     @Column({ nullable: true })
-        description!: string    
+        description!: string   
+        
+    public toJSON(): Association {
+            const json: Association = Object.assign({}, this)
+            return json
     }
+}

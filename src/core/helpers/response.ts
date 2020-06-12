@@ -1,3 +1,5 @@
+import {isArray,isEmpty} from"lodash"
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type RepsonseOk = {
   data: {
@@ -15,9 +17,11 @@ type ResponseKo = {
 }
 
 export function success(resource: any, meta: any = {}): RepsonseOk {
-  let name = resource.constructor.name
+  
+  const name = (isArray(resource)) && !isEmpty(resource) ? resource[0].constructor.name : resource.constructor.name 
 
-  return { data: { [name.toLowerCase()]: resource.toJSON(), meta } }
+
+ return isArray(resource) ? { data: { [name.toLowerCase()]: resource, meta } } : { data: { [name.toLowerCase()]: resource.toJSON(), meta } }
 }
 
 export function error({ status, code }: { status: number; code: string }, err: any): ResponseKo {

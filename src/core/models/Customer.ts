@@ -30,4 +30,11 @@ export default class Customer extends User{
     
     @ManyToOne( type => Rank, rank => rank.customers)
         rank!: Rank | undefined
+
+    
+    public toJSON(): Customer {
+        const json: Customer = Object.assign({}, this)
+        delete json.password
+        return json
+    }
     }

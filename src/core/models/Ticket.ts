@@ -57,4 +57,9 @@ export default class Ticket extends BaseEntity {
     @ManyToOne( type => User, user => user.tickets)
     user!: User | undefined
 
+    public toJSON(): Ticket {
+        const json: Ticket = Object.assign({}, this)
+        return json
+      }
+
 }
