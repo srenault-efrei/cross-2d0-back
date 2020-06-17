@@ -29,7 +29,7 @@ const customers = [
         gender: CustomerGender.Woman,
         email: "fabian_trocify@yopmail.com",
         password: '123456',
-        tickets: [5]
+        tickets: [2,5]
     },
     {
         id: "4f38ec56-7757-42d7-8f13-cca1df2f780c",
@@ -38,7 +38,7 @@ const customers = [
         gender: CustomerGender.Woman,
         email: "maxime_trocify@yopmail.com",
         password: '123456',
-        tickets: [6]
+        tickets: [1,6]
     },
 
 ]

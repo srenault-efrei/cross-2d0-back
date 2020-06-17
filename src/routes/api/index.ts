@@ -4,8 +4,12 @@ import secured from './secured'
 import passport from 'passport'
 import ranks from './rank'
 import categories from './category'
+import cors from 'cors'
+
 
 const api = Router()
+api.use(cors())
+
 
 api.get('/', (req: Request, res: Response) => {
   res.json({
