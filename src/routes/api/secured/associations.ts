@@ -68,7 +68,7 @@ api.put('/:id', async (req: Request, res: Response) => {
       association.description = description
       association.longitude = longitiude
       association.latitude = latitude
-      association.geolocalisation= geolocalisation
+      association.geolocalisation = geolocalisation
       await association.save()
       res.status(OK.status).json(success(association))
     }

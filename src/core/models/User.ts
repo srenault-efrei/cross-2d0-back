@@ -39,7 +39,7 @@ export default class User extends BaseEntity {
   avatarFile!: string
 
   @Column({ nullable: false, default: false })
-  geocalisation!: boolean
+  geolocalisation!: boolean
 
   @CreateDateColumn()
   createdAt!: string
