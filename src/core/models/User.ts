@@ -18,7 +18,7 @@ import Ticket from './Ticket'
 @TableInheritance({ column: { type: "varchar", name: "type" } })
 export default class User extends BaseEntity {
 
-  private static SALT_ROUND = 8
+  public static SALT_ROUND = 8
 
   @PrimaryGeneratedColumn('uuid')
   id!: string

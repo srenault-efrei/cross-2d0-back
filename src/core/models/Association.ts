@@ -19,6 +19,7 @@ export default class Association extends User{
         
     public toJSON(): Association {
             const json: Association = Object.assign({}, this)
+            delete json.password
             return json
     }
 }

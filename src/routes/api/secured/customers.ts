@@ -1,10 +1,12 @@
 import { Router, Request, Response } from 'express'
 import { isEmpty } from 'lodash'
+import bcrypt from 'bcryptjs'
 import { error, success } from '../../../core/helpers/response'
 import { BAD_REQUEST, CREATED, OK } from '../../../core/constants/api'
 import jwt from 'jsonwebtoken'
 import Customer from '@/core/models/Customer'
 import Rank from '@/core/models/Rank'
+import User from '@/core/models/User'
 
 const api = Router()
 
@@ -48,7 +50,7 @@ api.post('/', async (req: Request, res: Response) => {
 
 api.put('/:id', async (req: Request, res: Response) => {
 
-  const fields = ['firstname','lastname','note','rank','geolocalisation']
+  const fields = ['firstname','lastname','email','gender','rank','geolocalisation',]
   try {
     const { id } = req.params
     const missings = fields.filter((field: string) => !req.body[field])
@@ -57,17 +59,29 @@ api.put('/:id', async (req: Request, res: Response) => {
       const isPlural = missings.length > 1
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
-    const {firstname,lastname,note,rank,geolocalisation,latitude, longitiude } = req.body
+    const {firstname,lastname,email,rank,gender,geolocalisation,latitude, longitiude } = req.body
     const customer = await Customer.findOne(id)
-    let custoRank = await Rank.findOne(rank as number)
+
+    
+    let custoRank = await Rank.findOne(rank as number) 
     if (customer){
-      customer.firstname = firstname,
-      customer.lastname = lastname,
-      customer.note= lastname,
+      if(req.body.password){
+        customer.password= bcrypt.hashSync(req.body.password, User.SALT_ROUND)
+      }
+      if(req.body.avatarFile){
+        customer.avatarFile = req.body.avatarFile
+      }
+      if(req.body.note){
+        customer.note = req.body.note
+      } 
+      customer.firstname = firstname
+      customer.lastname = lastname
+      customer.gender= gender
+      customer.email=email
       customer.rank = custoRank
       customer.longitude = longitiude
       customer.latitude = latitude
-      customer.geocalisation= geolocalisation
+      customer.geolocalisation= geolocalisation as boolean
       await customer.save()
       res.status(OK.status).json(success(customer))
     }
