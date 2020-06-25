@@ -6,6 +6,8 @@ import { BAD_REQUEST, CREATED, OK } from '../../../core/constants/api'
 import jwt from 'jsonwebtoken'
 import Association from '@/core/models/Association'
 import User from '@/core/models/User'
+import uploadFile from '@/core/services/amazonS3'
+
 
 const api = Router()
 
@@ -59,9 +61,11 @@ api.put('/:id', async (req: Request, res: Response) => {
       if(req.body.password){
         association.password= bcrypt.hashSync(req.body.password, User.SALT_ROUND)
       }
-      if(req.body.avatarFile){
-        association.avatarFile = req.body.avatarFile
+      if(req.body.filename && req.body.key){
+        uploadFile(req.body.filename, req.body.key)
+        association.avatarFile= `https://trocifyfile.s3.eu-west-3.amazonaws.com/${req.body.key}`
       }
+     
       association.name = name,
       association.filePath = filePath,
       association.email = email,

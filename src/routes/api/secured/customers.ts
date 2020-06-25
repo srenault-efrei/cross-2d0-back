@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import Customer from '@/core/models/Customer'
 import Rank from '@/core/models/Rank'
 import User from '@/core/models/User'
+import uploadFile from '@/core/services/amazonS3'
 
 const api = Router()
 
@@ -68,12 +69,14 @@ api.put('/:id', async (req: Request, res: Response) => {
       if(req.body.password){
         customer.password= bcrypt.hashSync(req.body.password, User.SALT_ROUND)
       }
-      if(req.body.avatarFile){
-        customer.avatarFile = req.body.avatarFile
-      }
       if(req.body.note){
         customer.note = req.body.note
       } 
+      if(req.body.filename && req.body.key){
+        uploadFile(req.body.filename, req.body.key)
+        customer.avatarFile= `https://trocifyfile.s3.eu-west-3.amazonaws.com/${req.body.key}`
+      }
+
       customer.firstname = firstname
       customer.lastname = lastname
       customer.gender= gender
