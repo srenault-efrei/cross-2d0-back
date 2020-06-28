@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash'
 import { error, success } from '../../../core/helpers/response'
 import { BAD_REQUEST, CREATED, OK } from '../../../core/constants/api'
 import jwt from 'jsonwebtoken'
+import { getRepository } from "typeorm";
 import Ticket from '@/core/models/Ticket'
 import Category from '@/core/models/Category'
 import Customer from '@/core/models/Customer'
@@ -86,8 +87,14 @@ api.put('/:id', async (req: Request, res: Response) => {
 
 api.get('/', async (req: Request, res: Response) => {
   try {
-    const tickets = await Ticket.find({ relations: ["user","category"] })
+
+    const tickets = await getRepository(Ticket)
+    .createQueryBuilder("ticket")
+    .leftJoinAndSelect("ticket.user", "user")
+    .leftJoinAndSelect("ticket.category", "category")
+    .getMany();
     res.status(CREATED.status).json(success(tickets))
+
   } catch (err) {
     res.status(BAD_REQUEST.status).json(error(BAD_REQUEST, err))
   }
