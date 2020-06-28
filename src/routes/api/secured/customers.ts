@@ -73,7 +73,7 @@ api.post('/:id/tickets', async (req: Request, res: Response) => {
     ticket.description = description
    
     // Permet de définir le rank du customer en fonction du nombre de tickets créés
-    const customer: Customer | undefined = await Customer.findOne(ticket.user?.id)
+    const customer: Customer | undefined = await Customer.findOne(idUser)
     if(customer && customer.tickets){
       customer.tickets.push(ticket)
       let rankId: number = customer.calculRank(customer.tickets.length)   
@@ -98,7 +98,7 @@ api.put('/:id/tickets', async (req: Request, res: Response) => {
 
   const fields = ['firstname', 'lastname', 'email', 'gender', 'geolocalisation',]
   try {
-    const { id } = req.params
+    const { idUser } = req.params
     const missings = fields.filter((field: string) => !req.body[field])
 
     if (!isEmpty(missings)) {
@@ -106,7 +106,7 @@ api.put('/:id/tickets', async (req: Request, res: Response) => {
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
     const { firstname, lastname, email, rank, gender, geolocalisation, latitude, longitiude } = req.body
-    const customer = await Customer.findOne(id)
+    const customer = await Customer.findOne(idUser)
 
     if (customer) {
       if (req.body.password) {
