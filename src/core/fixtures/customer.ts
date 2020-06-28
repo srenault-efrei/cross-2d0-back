@@ -63,6 +63,7 @@ export async function addCustomers(): Promise<never | void> {
                 }
             }
             u.tickets = tickets
+            u.totalTickets = tickets.length
         }
         await u.save()
     }

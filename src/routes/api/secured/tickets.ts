@@ -5,6 +5,9 @@ import { BAD_REQUEST, CREATED, OK } from '../../../core/constants/api'
 import jwt from 'jsonwebtoken'
 import Ticket from '@/core/models/Ticket'
 import Category from '@/core/models/Category'
+import Customer from '@/core/models/Customer'
+import Rank from '@/core/models/Rank'
+
 
 const api = Router()
 
@@ -24,6 +27,14 @@ api.post('/', async (req: Request, res: Response) => {
     ticket.title = title
     ticket.type = type
     ticket.description = description
+   
+    // Permet de définir le rank du customer en fonction du nombre de tickets créés
+    const customer: Customer | undefined = await Customer.findOne(ticket.user?.id)
+    if(customer && customer.tickets){
+      let rankId: number = customer.calculRank(customer.tickets.length)   
+      customer.rank = await Rank.findOne(rankId)
+      await customer.save()
+    }
 
     const cat : Category | undefined = await Category.findOne(category)
     if (cat){
