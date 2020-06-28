@@ -73,11 +73,14 @@ api.post('/:id/tickets', async (req: Request, res: Response) => {
     ticket.description = description
    
     // Permet de définir le rank du customer en fonction du nombre de tickets créés
-    const customer: Customer | undefined = await Customer.findOne(idUser)
-    if(customer && customer.tickets){
-      customer.tickets.push(ticket)
-      let rankId: number = customer.calculRank(customer.tickets.length)   
-      customer.rank = await Rank.findOne(rankId)
+    const customer: Customer | undefined = await Customer.findOne(idUser,{ relations: ["tickets"] })
+    if(customer){
+      ticket.user = customer
+      if(customer.tickets?.length){
+        customer.totalTickets = customer.tickets.length + 1
+        let rankId: number = customer.calculRank(customer.tickets.length)   
+        customer.rank = await Rank.findOne(rankId)
+      }
       await customer.save()
     }
 
