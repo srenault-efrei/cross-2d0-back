@@ -94,7 +94,7 @@ api.post('/:id/tickets', async (req: Request, res: Response) => {
   }
 })
 
-api.put('/:id/tickets', async (req: Request, res: Response) => {
+api.put('/:id/', async (req: Request, res: Response) => {
 
   const fields = ['firstname', 'lastname', 'email', 'gender', 'geolocalisation',]
   try {
@@ -134,7 +134,7 @@ api.put('/:id/tickets', async (req: Request, res: Response) => {
       res.status(OK.status).json(success(customer))
     }
     else {
-      res.status(BAD_REQUEST.status).json({ 'err': 'association inexistante' })
+      res.status(BAD_REQUEST.status).json({ 'err': 'customer inexistant' })
     }
 
   } catch (err) {
