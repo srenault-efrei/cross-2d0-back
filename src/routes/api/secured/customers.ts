@@ -183,7 +183,8 @@ api.get('/:id', async (req: Request, res: Response) => {
       .orderBy("customer.totalTickets", "DESC")
       .where("customer.id = :id", { id })
       .getMany()
-    res.status(CREATED.status).json(success(customer))
+    res.status(CREATED.status).json(success(customer[0]))
+    
 
   } catch (err) {
     res.status(BAD_REQUEST.status).json(error(BAD_REQUEST, err))
