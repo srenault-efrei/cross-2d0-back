@@ -52,7 +52,7 @@ api.post('/', async (req: Request, res: Response) => {
 
 api.put('/:id', async (req: Request, res: Response) => {
 
-  const fields = ['title','type','category','state','description', 'imagesFiles']
+  const fields = ['title','type','category','state','description', 'imagesFiles','localisation']
   try {
     const { id } = req.params
     const missings = fields.filter((field: string) => !req.body[field])
@@ -61,13 +61,14 @@ api.put('/:id', async (req: Request, res: Response) => {
       const isPlural = missings.length > 1
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
-    const { title,type, description,state,category,imagesFiles } = req.body
+    const { title,type, description,state,category,imagesFiles,localisation } = req.body
     const ticket = await Ticket.findOne(id)
     if (ticket){
       ticket.title = title
       ticket.type = type
       ticket.state=state
       ticket.description= description
+      ticket.localisation= localisation
       ticket.imagesFiles= imagesFiles
       const cat : Category | undefined = await Category.findOne(category)
       if (cat){

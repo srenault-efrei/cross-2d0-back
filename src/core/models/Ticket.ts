@@ -42,6 +42,10 @@ export default class Ticket extends BaseEntity {
     @Column({ type: "text", nullable: false })
     type!: TicketType
 
+    
+    @Column({ type: "text", nullable: false })
+    localisation!: string
+
     @Column({ type: "text", nullable: false, default: TicketState.FIRST_STATE })
     state!: TicketState
 

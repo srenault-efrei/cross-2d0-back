@@ -59,7 +59,7 @@ api.post('/', async (req: Request, res: Response) => {
 })
 
 api.post('/:id/tickets', async (req: Request, res: Response) => {
-  const fields = ['title','type','category','description', 'imagesFiles']
+  const fields = ['title','type','category','description', 'imagesFiles','localisation']
   const { idUser } = req.params
 
   try {
@@ -70,10 +70,11 @@ api.post('/:id/tickets', async (req: Request, res: Response) => {
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
 
-    const { title,type, description,category,imagesFiles } = req.body
+    const { title,type, description,category,imagesFiles,localisation } = req.body
     const ticket= new Ticket()
     ticket.title = title
     ticket.type = type
+    ticket.localisation= localisation
     ticket.description = description
    
     // Permet de définir le rank du customer en fonction du nombre de tickets créés
