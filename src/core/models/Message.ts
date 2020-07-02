@@ -1,8 +1,9 @@
 import {
     Entity,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
+    CreateDateColumn,
     ManyToOne,
+    Column,
     BaseEntity
 } from 'typeorm'
 
@@ -20,6 +21,15 @@ export default class Message extends BaseEntity {
     @ManyToOne( type => User, user => user.recipientMessages )
     recipient!: User | undefined
 
-    @UpdateDateColumn()
-    updatedAt!: string
+    @Column({ nullable: false })
+    content!: string
+
+    @CreateDateColumn()
+    createdAt!: string
+
+    
+    public toJSON(): Message {
+        const json: Message = Object.assign({}, this)
+        return json
+      }
 }

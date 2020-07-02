@@ -11,6 +11,8 @@ import Ticket from '@/core/models/Ticket'
 import uploadFile from '@/core/services/amazonS3'
 import { getRepository } from "typeorm";
 import Category from '@/core/models/Category'
+import Message from '@/core/models/Message'
+import { hasUncaughtExceptionCaptureCallback } from 'process'
 
 
 const api = Router()
@@ -198,5 +200,7 @@ api.get('/:id', async (req: Request, res: Response) => {
 
   }
 })
+
+
 
 export default api

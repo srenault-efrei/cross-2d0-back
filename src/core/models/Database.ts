@@ -13,6 +13,7 @@ import { addCategories } from '../fixtures/category'
 import { addCustomers } from '../fixtures/customer'
 import { addAssociations } from '../fixtures/association'
 import { addTickets } from '../fixtures/tickets'
+import { addMessages } from '../fixtures/messages'
 
 
 
@@ -44,6 +45,10 @@ export default class Database {
       addCustomers()
       addAssociations()
     }, 2000);
+
+    setTimeout(async function () {
+      addMessages()
+    }, 3000);
 
   }
 
