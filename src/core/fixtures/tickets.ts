@@ -8,7 +8,11 @@ const tickets = [
         type: TicketType.SECONND_TYPE,
         category: 1,
         description: "Distribution de repas",
-        imagesFiles: ['../src/img/photo1.png', '..src/img/photo2.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Paris'
     },
 
     {
@@ -17,7 +21,12 @@ const tickets = [
         type: TicketType.SECONND_TYPE,
         category: 3,
         description: "Donne jouet playmobil ",
-        imagesFiles: ['../src/img/photo3.png', '..src/img/photo4.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Marseille'
+
     },
 
     {
@@ -26,7 +35,12 @@ const tickets = [
         type: TicketType.FIRST_TYPE,
         category: 2,
         description: "Echange Yeezy 350 contre balanciaga",
-        imagesFiles: ['../src/img/photo5.png', '..src/img/photo6.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Bordeaux'
+
     },
 
 
@@ -36,7 +50,11 @@ const tickets = [
         type: TicketType.FIRST_TYPE,
         category: 2,
         description: "Pantalon Levis jamais porté taille 40",
-        imagesFiles: ['../src/img/photo7.png', '..src/img/photo8.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Toulouse'
     },
 
 
@@ -46,7 +64,11 @@ const tickets = [
         type: TicketType.FIRST_TYPE,
         category: 1,
         description: "Gateau ananas",
-        imagesFiles: ['../src/img/photo9.png', '..src/img/photo10.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Nantes'
     },
 
     {
@@ -55,7 +77,12 @@ const tickets = [
         type: TicketType.FIRST_TYPE,
         category: 3,
         description: "Doudoune nike avec fourrure taille L ",
-        imagesFiles: ['../src/img/photo11.png', '..src/img/photo12.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+
+        localisation: 'Rennes'
     },
 
     {
@@ -64,7 +91,11 @@ const tickets = [
         type: TicketType.FIRST_TYPE,
         category: 4,
         description: "Echange MAC contre un iphone 11",
-        imagesFiles: ['../src/img/photo11.png', '..src/img/photo12.png']
+        imagesFiles: [
+            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
+        ],
+        localisation: 'Reims'
     },
 
 ]
@@ -78,6 +109,7 @@ export async function addTickets(): Promise<never | void> {
             t.id = ticket.id
             t.title = ticket.title
             t.type = ticket.type
+            t.localisation = ticket.localisation
             t.description = ticket.description
             t.imagesFiles = ticket.imagesFiles
             t.category = await Category.findOne(ticket.category)
