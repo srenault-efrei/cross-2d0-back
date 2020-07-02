@@ -13,7 +13,7 @@ const api = Router()
 
 
 api.post('/', async (req: Request, res: Response) => {
-  const fields = ['name','filePath','description','email', 'password', 'passwordConfirmation']
+  const fields = ['name','filePath','description','email', 'password', 'passwordConfirmation','longitude','latitude']
   try {
     const missings = fields.filter((field: string) => !req.body[field])
 
@@ -22,7 +22,7 @@ api.post('/', async (req: Request, res: Response) => {
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
 
-    const { name,filePath, email,description,password, passwordConfirmation } = req.body
+    const { name,filePath, email,description,password, passwordConfirmation,longitiude,latitude } = req.body
 
     if (password !== passwordConfirmation) {
       throw new Error("Password doesn't match")
@@ -33,6 +33,8 @@ api.post('/', async (req: Request, res: Response) => {
     association.email = email,
     association.description = description
     association.password = password
+    association.longitude = longitiude
+    association.latitude = latitude
     await association.save()
     const payload = { id: association.id, name }
     const token = jwt.sign(payload, process.env.JWT_ENCRYPTION as string)
@@ -46,7 +48,7 @@ api.post('/', async (req: Request, res: Response) => {
 
 api.put('/:id', async (req: Request, res: Response) => {
 
-  const fields = ['name','filePath','description','email','geolocalisation']
+  const fields = ['name','filePath','description','email',]
   try {
     const { id } = req.params
     const missings = fields.filter((field: string) => !req.body[field])
@@ -55,7 +57,7 @@ api.put('/:id', async (req: Request, res: Response) => {
       const isPlural = missings.length > 1
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
-    const {name,filePath, email,description,geolocalisation,latitude, longitiude } = req.body
+    const {name,filePath, email,description } = req.body
     const association = await Association.findOne(id)
     if (association){
       if(req.body.password){
@@ -70,9 +72,6 @@ api.put('/:id', async (req: Request, res: Response) => {
       association.filePath = filePath,
       association.email = email,
       association.description = description
-      association.longitude = longitiude
-      association.latitude = latitude
-      association.geolocalisation= geolocalisation
       await association.save()
       res.status(OK.status).json(success(association))
     }

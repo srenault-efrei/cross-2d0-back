@@ -11,13 +11,12 @@ import Ticket from '@/core/models/Ticket'
 import uploadFile from '@/core/services/amazonS3'
 import { getRepository } from "typeorm";
 import Category from '@/core/models/Category'
-import { TranscribeService } from 'aws-sdk'
 
 
 const api = Router()
 
 api.post('/', async (req: Request, res: Response) => {
-  const fields = ['firstname', 'lastname', 'gender', 'email', 'password', 'passwordConfirmation']
+  const fields = ['firstname', 'lastname', 'longitude','latitude', 'email', 'password', 'passwordConfirmation']
 
   try {
     const missings = fields.filter((field: string) => !req.body[field])
@@ -27,7 +26,7 @@ api.post('/', async (req: Request, res: Response) => {
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
 
-    const { firstname, lastname, email, gender, password, passwordConfirmation } = req.body
+    const { firstname, lastname, email, gender, password, passwordConfirmation,longitude,latitude} = req.body
 
     if (password !== passwordConfirmation) {
       throw new Error("Password doesn't match")
@@ -37,10 +36,13 @@ api.post('/', async (req: Request, res: Response) => {
     let rank = await Rank.findOne(1)
 
     customer.firstname = firstname,
-      customer.lastname = lastname,
-      customer.email = email,
-      customer.gender = gender
+    customer.lastname = lastname,
+    customer.email = email,
+    customer.gender = gender
     customer.password = password
+    customer.longitude= longitude
+    customer.latitude= latitude
+
     customer.rank = rank
 
     await customer.save()
@@ -99,17 +101,18 @@ api.post('/:id/tickets', async (req: Request, res: Response) => {
 
 api.put('/:id/', async (req: Request, res: Response) => {
 
-  const fields = ['firstname', 'lastname', 'email', 'gender', 'geolocalisation',]
+  const fields = ['firstname', 'lastname', 'email', 'gender']
   try {
-    const { idUser } = req.params
+    const { id } = req.params
+    
     const missings = fields.filter((field: string) => !req.body[field])
-
     if (!isEmpty(missings)) {
       const isPlural = missings.length > 1
       throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
     }
-    const { firstname, lastname, email, rank, gender, geolocalisation, latitude, longitiude } = req.body
-    const customer = await Customer.findOne(idUser)
+
+    const { firstname, lastname, email, gender } = req.body
+    const customer = await Customer.findOne(id)
 
     if (customer) {
       if (req.body.password) {
@@ -126,13 +129,16 @@ api.put('/:id/', async (req: Request, res: Response) => {
         let rankId: number = customer.calculRank(customer.tickets.length)   
         customer.rank = await Rank.findOne(rankId)
       }
+
+      if (req.body.gender) {
+        customer.gender = req.body.gender
+      }
+
+
       customer.firstname = firstname
       customer.lastname = lastname
       customer.gender = gender
       customer.email = email
-      customer.longitude = longitiude
-      customer.latitude = latitude
-      customer.geolocalisation = geolocalisation as boolean
       await customer.save()
       res.status(OK.status).json(success(customer))
     }
@@ -182,8 +188,9 @@ api.get('/:id', async (req: Request, res: Response) => {
       .leftJoinAndSelect("customer.tickets", "tickets")
       .orderBy("customer.totalTickets", "DESC")
       .where("customer.id = :id", { id })
-      .getMany()
-    res.status(CREATED.status).json(success(customer[0]))
+      .getOne()
+    res.status(CREATED.status).json(success(customer))
+    
     
 
   } catch (err) {
