@@ -48,7 +48,7 @@ api.post('/', async (req: Request, res: Response) => {
 
 api.put('/:id', async (req: Request, res: Response) => {
 
-  const fields = ['name','filePath','description','email',]
+  const fields = ['name','filePath','description','email']
   try {
     const { id } = req.params
     const missings = fields.filter((field: string) => !req.body[field])
