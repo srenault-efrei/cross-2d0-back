@@ -62,6 +62,8 @@ export async function addCustomers(): Promise<never | void> {
             u.lastname = user.lastname
             u.gender = user.gender
             u.password = user.password
+            u.longitude = user.longitude
+            u.latitude = user.latitude
             u.email = user.email
             u.rank = await Rank.findOne(1)
             for (const ticket of user.tickets) {

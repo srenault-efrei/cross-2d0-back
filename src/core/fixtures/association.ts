@@ -36,6 +36,8 @@ export async function addAssociations(): Promise<never | void> {
             a.name = asso.name
             a.password = asso.password
             a.email = asso.email
+            a.longitude = asso.longitude
+            a.latitude = asso.latitude
             a.description = asso.description
             a.filePath = asso.filePath
         }
