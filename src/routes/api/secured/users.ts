@@ -76,6 +76,7 @@ api.post('/:id/messages/', async (req: Request, res: Response) => {
         .leftJoinAndSelect("message.recipient", "recipient")
         .leftJoinAndSelect("message.sender", "sender")
         .where("message.sender = :user", { user:user.id })
+        .orWhere("message.recipient = :user", { user:user.id })
         .getMany()
         res.status(CREATED.status).json(success(messages))
       }
