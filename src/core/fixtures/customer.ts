@@ -9,6 +9,8 @@ const customers = [
         lastname: "Renault",
         gender: CustomerGender.Man,
         email: "steven_trocify@yopmail.com",
+        latitude: 48.8566969,
+        longitude: 2.3514616,
         password: '123456',
         tickets: [3,7]
     },
@@ -18,6 +20,8 @@ const customers = [
         lastname: "Assasmoi",
         gender: CustomerGender.Man,
         email: "josias_trocify@yopmail.com",
+        latitude: 51.8566969,
+        longitude: 2.4014616,
         password: '123456',
         tickets: [4]
 
@@ -28,6 +32,8 @@ const customers = [
         lastname: "Facinou",
         gender: CustomerGender.Woman,
         email: "fabian_trocify@yopmail.com",
+        latitude: 46.8566969,
+        longitude: 3.3514616,
         password: '123456',
         tickets: [2,5]
     },
@@ -37,6 +43,8 @@ const customers = [
         lastname: "Galissaire",
         gender: CustomerGender.Woman,
         email: "maxime_trocify@yopmail.com",
+        latitude: 47.4066969,
+        longitude: 2.3514616,
         password: '123456',
         tickets: [1,6]
     },

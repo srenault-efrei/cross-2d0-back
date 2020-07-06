@@ -7,6 +7,8 @@ const associations = [
         name: "Les Restos du cœur",
         email: "resto-du-coeur@yopmail.com",
         description :'Fondés par Coluche en 1985, les Restos du Cœur est une association loi de 1901',
+        latitude: 50.8566969,
+        longitude: 2.1014616,
         filePath: 'certification1.png',
         password: '123456',
     },
@@ -17,6 +19,8 @@ const associations = [
         email: "ludopital@yopmail.com",
         password: '123456',
         description :'Depuis 1987, Ludopital améliore le séjour des enfants hospitalisés dans les hôpitaux',
+        latitude: 49.8566969,
+        longitude: 2.3514616,
         filePath: 'certification2.png',
     },
 
