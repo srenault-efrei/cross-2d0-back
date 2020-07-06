@@ -27,7 +27,7 @@ const tickets = [
             "https://images-na.ssl-images-amazon.com/images/I/91J5s1FodhL._AC_SX355_.jpg",
             "https://images-na.ssl-images-amazon.com/images/I/71d%2BLmXey-L._AC_SX355_.jpg"
         ],
-        localisation: 'Marseille'
+        localisation: 'Paris'
 
     },
 
@@ -43,7 +43,7 @@ const tickets = [
             "https://www.picclickimg.com/d/l400/pict/223273764783_/Adidas-Yeezy-500-Salt-US-Mens-Size-12.jpg"
 
         ],
-        localisation: 'Bordeaux'
+        localisation: 'Paris'
 
     },
 
@@ -58,7 +58,7 @@ const tickets = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSnozHEAtY7TDFFN8qgRmWxQv9VpUopnBAOI9Hmkq0zZnsDsctrEbHnVskLLwjdr6sKYVWbQdM&usqp=CAc",
             "https://www.bobbavice.fr/image/cache/data/category_14/levis_504_regular_straight_fit_jeans_homme_31eikkezv-500x500.jpg"
         ],
-        localisation: 'Toulouse'
+        localisation: 'Paris'
     },
 
 
@@ -73,7 +73,7 @@ const tickets = [
             "https://static.750g.com/images/622-auto/f0904381ba4904da3e38225a4ca38dfd/gateau-au-chocolat.jpg",
             "https://aufilduthym.fr/wp-content/uploads/2016/10/gateau-pommes-ancienne.jpg"
         ],
-        localisation: 'Nantes'
+        localisation: 'Paris'
     },
 
     {
@@ -88,7 +88,7 @@ const tickets = [
             "https://www.cdiscount.com/pdt2/6/9/9/1/700x700/mp13683699/rw/veste-a-capuche-nike-sportswear-windrunner-down-fi.jpg"
         ],
 
-        localisation: 'Rennes'
+        localisation: 'Paris'
     },
 
     {
@@ -102,7 +102,7 @@ const tickets = [
             "https://images.frandroid.com/wp-content/uploads/2020/02/macbook-pro-13-pocues-via-acheter-sur-google.jpg",
             "https://www.cdiscount.com/pdt2/0/9/6/1/700x700/app3701073099096/rw/pc-portables-reconditionnee-apple-macbook-air-6-2.jpg"
         ],
-        localisation: 'Reims'
+        localisation: 'Paris'
     },
 
 
@@ -117,7 +117,7 @@ const tickets = [
             "https://asset.msi.com/global/picture/image/feature/multimeda/mouse/DS4200/ds4200_overview_.png",
             "http://cdn.mos.cms.futurecdn.net/wt83z5SRX6uh2HoporkNJ4.jpg"
         ],
-        localisation: 'Nantes'
+        localisation: 'Paris'
     },
 
     {
@@ -131,13 +131,13 @@ const tickets = [
             "https://www.cdiscount.com/pdt2/5/0/0/1/300x300/smo810500/rw/maison-de-jardin-neo-juralodge-en-plastique-anti-u.jpg",
             "https://www.jeu-labyrinthe.com/wp-content/uploads/2019/08/maison-jardin.jpg"
         ],
-        localisation: 'Nantes'
+        localisation: 'Paris'
     },
 
     {
         id: 10,
         title: 'Chaussure de football',
-        type: TicketType.FIRST_TYPE,
+        type: TicketType.SECONND_TYPE,
         category: 2,
         description: "Chaussure de football nike jamais utilisé",
         imagesFiles: [
@@ -145,7 +145,7 @@ const tickets = [
             "https://www.footpack.fr/wp-content/uploads/2016/05/chaussure-football-nike-mercurial-superfly-5-vapor-1024x732.jpg",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT0LDqXcvDJTd5ON63FPuKrlUdoGBAKhx4tBg&usqp=CAU"
         ],
-        localisation: 'Nantes'
+        localisation: 'Paris'
     },
 
 
