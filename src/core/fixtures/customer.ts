@@ -12,7 +12,7 @@ const customers = [
         latitude: 48.8566969,
         longitude: 2.3514616,
         password: '123456',
-        tickets: [3,7]
+        tickets: [3,7,8,9]
     },
     {
         id: "2f38ec56-7757-42d7-8f13-cca1df2f780c",
@@ -46,7 +46,7 @@ const customers = [
         latitude: 47.4066969,
         longitude: 2.3514616,
         password: '123456',
-        tickets: [1,6]
+        tickets: [1,6,10]
     },
 
 ]
