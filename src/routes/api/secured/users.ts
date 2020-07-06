@@ -53,6 +53,7 @@ api.post('/:id/messages/', async (req: Request, res: Response) => {
         .andWhere("message.sender = :user", {  user:user.id })
         .orWhere("message.recipient = :user", {  user:user.id })
         .andWhere("message.sender = :recipient", {  recipient })
+        .orderBy("message.createdAt", "DESC") 
         .getMany()
         res.status(CREATED.status).json(success(messages))
       }
@@ -77,6 +78,7 @@ api.post('/:id/messages/', async (req: Request, res: Response) => {
         .leftJoinAndSelect("message.sender", "sender")
         .where("message.sender = :user", { user:user.id })
         .orWhere("message.recipient = :user", { user:user.id })
+        .orderBy("message.createdAt", "DESC")
         .getMany()
         res.status(CREATED.status).json(success(messages))
       }
