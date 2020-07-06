@@ -36,6 +36,7 @@ api.post('/signup/customers', async (req: Request, res: Response) => {
     customer.password = password
     customer.longitude= longitude
     customer.latitude= latitude
+    customer.totalTickets=0
 
     customer.rank = rank
 
