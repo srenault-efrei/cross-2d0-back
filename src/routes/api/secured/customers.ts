@@ -17,46 +17,7 @@ import { hasUncaughtExceptionCaptureCallback } from 'process'
 
 const api = Router()
 
-api.post('/', async (req: Request, res: Response) => {
-  const fields = ['firstname', 'lastname', 'longitude','latitude', 'email', 'password', 'passwordConfirmation']
 
-  try {
-    const missings = fields.filter((field: string) => !req.body[field])
-
-    if (!isEmpty(missings)) {
-      const isPlural = missings.length > 1
-      throw new Error(`Field${isPlural ? 's' : ''} [ ${missings.join(', ')} ] ${isPlural ? 'are' : 'is'} missing`)
-    }
-
-    const { firstname, lastname, email, gender, password, passwordConfirmation,longitude,latitude} = req.body
-
-    if (password !== passwordConfirmation) {
-      throw new Error("Password doesn't match")
-    }
-
-    const customer = new Customer()
-    let rank = await Rank.findOne(1)
-
-    customer.firstname = firstname,
-    customer.lastname = lastname,
-    customer.email = email,
-    customer.gender = gender
-    customer.password = password
-    customer.longitude= longitude
-    customer.latitude= latitude
-
-    customer.rank = rank
-
-    await customer.save()
-
-    const payload = { id: customer.id, firstname }
-    const token = jwt.sign(payload, process.env.JWT_ENCRYPTION as string)
-
-    res.status(CREATED.status).json(success(customer, { token }))
-  } catch (err) {
-    res.status(BAD_REQUEST.status).json(error(BAD_REQUEST, err))
-  }
-})
 
 api.post('/:id/tickets', async (req: Request, res: Response) => {
   const fields = ['title','type','category','description', 'imagesFiles','localisation']
