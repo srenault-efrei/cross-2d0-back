@@ -9,7 +9,8 @@
     "test:type": "yarn tsc",
     "lint": "yarn eslint src/**/*.ts",
     "build": "yarn babel src/ --out-dir .dist --extensions '.ts' --quiet",
-    "start": "yarn build && node .dist/main"
+    "start": "yarn migration && yarn build && node .dist/main " ,
+    "migration": "npx prisma migrate dev --name init --preview-feature"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -41,16 +42,18 @@
     "husky": "^4.2.3",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.2",
+    "prisma": "2.18.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@prisma/client": "^2.18.0",
     "@types/cors": "^2.8.6",
-    "aws-sdk": "^2.703.0",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -58,7 +61,6 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.0.0",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "reflect-metadata": "^0.1.13"
   }
 }

@@ -4,8 +4,6 @@
     "HOST",
     "PORT",
     "DATABASE_URL",
-    "JWT_ENCRYPTION",
-    "AWSID",
-    "AWSSECRET"
+    "JWT_ENCRYPTION"
   ]
 }
